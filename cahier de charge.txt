@@ -1,0 +1,22 @@
+Agence Youdrive vient d’ouvrir sa service. Youdrive souhaite avoir une application web qui lui permet de gérer le service.
+
+L’application doit avoir un back-office pour gérer :
+-> ADMIN
+gestion des voiturs (CRUD )
+gestion des categories (CRUD)
+
+-> USER
+gestion des commandes (CRUD )
+payments
+
+* les abonnés doivent se connecter pour commander les voitures disponibles.
+
+
+N.B : L'interface d'administration sera protégée par mot de passe.
+
+Contraintes technologiques :
+• L'application doit être programmée en
+•	Reactjs
+•	Mongodb
+•	Express
+• mode de payment: stripe / paypal
