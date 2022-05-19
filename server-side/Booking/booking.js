@@ -13,7 +13,7 @@ exports.createCommande = async (req, res, next) => {
         const { id } = req.params;
         const commande = await Commande.findOne({
           _id: id,
-        }).populate('category')
+        }).populate('Cars')
 
         // commande already exists
         if (commande) {
@@ -40,16 +40,21 @@ exports.createCommande = async (req, res, next) => {
 }
 
 exports.updateCommande = async (req, res, next) => {
+    const days = moment(checkOut).diff(moment(checkIn), 'days');
+    const formatDate = (date, format = 'YYYY-MM-DD') =>
+          moment(date).format(format);
+    const checkInDate = formatDate(checkIn);
+    const checkOutDate = formatDate(checkOut);
     const { id } = req.params;
-    const { checkIn, checkOut, price, days } = req.body;
+    const { checkIn, checkOut, price } = req.body;
   try {
     const commande = await Commande.findByIdAndUpdate(
       {
         _id: id,
       },
       {
-        checkIn,
-        checkOut,
+        checkIn: checkInDate,
+        checkOut: checkOutDate,
         days,
         totalPrice: price * days,
       },

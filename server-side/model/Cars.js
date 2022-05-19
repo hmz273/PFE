@@ -22,11 +22,6 @@ const CarsSchema = new Mongoose.Schema({
         required: [true, 'Hotel must have at least 4 images']
     }],
   
-  category: {
-     type: Schema.Types.ObjectId,
-      ref: 'Category', 
-      required: true
-    },
 
   
 });

@@ -9,7 +9,7 @@ exports.createCar = async (req, res, next) => {
         const { id } = req.params;
         const car = await Car.findOne({
           _id: id,
-        }).populate('category')
+        })
 
         // Car already exists
         if (car) {
@@ -22,7 +22,6 @@ exports.createCar = async (req, res, next) => {
           title: req.body.title,
           desc: req.body.desc,
           price: req.body.price,
-          category: req.body.category,
           images: images,
       }); 
         res.status(201).json(newcar);
@@ -114,7 +113,6 @@ exports.getCarById = async (req, res) => {
 exports.getAllCars = async (req, res) => {
     try {
       const cars = await Car.find()
-      .populate('category');
       if (!cars) {
         return res.status(404).json({
           error: true,
