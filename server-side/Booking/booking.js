@@ -4,12 +4,12 @@ const Commande = require('../model/Booking');
 
 exports.createCommande = async (req, res, next) => {
     try {
-        const { checkIn, checkOut, carsId, userId, price, phone, cin } = req.body;
-        const days = moment(checkOut).diff(moment(checkIn), 'days');
+        const { checkin, checkout, carsId, userId, price, phone, cin } = req.body;
+        const days = moment(checkout).diff(moment(checkin), 'days');
         const formatDate = (date, format = 'YYYY-MM-DD') =>
               moment(date).format(format);
-        const checkInDate = formatDate(checkIn);
-        const checkOutDate = formatDate(checkOut);
+        const checkInDate = formatDate(checkin);
+        const checkOutDate = formatDate(checkout);
         const { id } = req.params;
         const commande = await Commande.findOne({
           _id: id,
@@ -27,12 +27,14 @@ exports.createCommande = async (req, res, next) => {
           checkOut: checkOutDate,
           cars: carsId,
           user: userId,
-          totalPrice: price * days,
-          days,
+          totalPrice:  price * days,
           phone,
           cin
         
         });
+      console.log(" price" ,price)
+      console.log(" days" ,days)
+
         res.status(201).json(newcommande);
     } catch(error) {
         next(error);
@@ -40,22 +42,22 @@ exports.createCommande = async (req, res, next) => {
 }
 
 exports.updateCommande = async (req, res, next) => {
-    const days = moment(checkOut).diff(moment(checkIn), 'days');
+    const { checkin, checkout, price } = req.body;
+    const days = moment(checkout).diff(moment(checkin), 'days');
     const formatDate = (date, format = 'YYYY-MM-DD') =>
           moment(date).format(format);
-    const checkInDate = formatDate(checkIn);
-    const checkOutDate = formatDate(checkOut);
+    const checkInDate = formatDate(checkin);
+    const checkOutDate = formatDate(checkout);
     const { id } = req.params;
-    const { checkIn, checkOut, price } = req.body;
+
   try {
     const commande = await Commande.findByIdAndUpdate(
       {
         _id: id,
       },
       {
-        checkIn: checkInDate,
-        checkOut: checkOutDate,
-        days,
+        checkin: checkInDate,
+        checkout: checkOutDate,
         totalPrice: price * days,
       },
       { new: true }

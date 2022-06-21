@@ -1,7 +1,7 @@
 {
-  "name": "car rental",
+  "name": "Car Rental",
   "version": "1.0.0",
-  "description": "User Role Authentication",
+  "description": "Car Rental",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"

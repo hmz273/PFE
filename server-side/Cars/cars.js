@@ -16,12 +16,15 @@ exports.createCar = async (req, res, next) => {
             res.status(409); // conflict error
             const error = new Error('Car already exists');
             return next(error);
-        } 
+        }  
            
         const newcar = await Car.create({
           title: req.body.title,
           desc: req.body.desc,
           price: req.body.price,
+          fuel: req.body.fuel,
+          boite: req.body.boite,
+          sets: req.body.sets,
           images: images,
       }); 
         res.status(201).json(newcar);
@@ -31,13 +34,26 @@ exports.createCar = async (req, res, next) => {
 }
 
 exports.updateCar = async (req, res, next) => {
-    const { id } = req.params;
   try {
+    const { id } = req.params; 
+    const { title, desc, price, boite, fuel, sets } = req.body;
+    const images = req.files.map((file) => {
+      return file.path
+    })
+    
     const car = await Car.findByIdAndUpdate(
       {
         _id: id,
       },
-      { ...req.body },
+      { 
+          title,
+          desc,
+          price,
+          sets,
+          boite,
+          fuel,
+          images: images,
+       },
       { new: true }
     );
     if (!car) {

@@ -12,6 +12,21 @@ const CarsSchema = new Mongoose.Schema({
     required: true,
   },
 
+  sets: {
+    type: String,
+    required: true,
+  },
+
+  fuel: {
+    type: String,
+    required: true,
+  },
+
+  boite: {
+    type: String,
+    required: true,
+  },
+
   price: {
     type: String,
     required: true,

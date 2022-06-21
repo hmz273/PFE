@@ -23,7 +23,7 @@ exports.register = async (req, res, next) => {
             expiresIn: maxAge, // 3hrs
           }
         );
-        res.cookie("jwt", token, {
+        res.cookie("token", token, {
           httpOnly: true,
           maxAge: maxAge * 1000,
         });
@@ -72,8 +72,8 @@ exports.login = async (req, res, next) => {
               expiresIn: maxAge, // 3hrs in sec
             }
           );
-          res.cookie("jwt", token, {
-            httpOnly: true,
+          res.cookie("token", token, {
+            httpOnly: false,
             maxAge: maxAge * 1000, // 3hrs in ms
           });
           res.status(201).json({

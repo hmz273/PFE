@@ -4,18 +4,21 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const PORT = 4000;
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
 
 
 connectDB();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));
 
 // Routes
 app.use("/api/auth", require("./Auth/route"));
-app.use("/api/category", require("./Category/route"));
 app.use("/api/cars", require("./Cars/route"));
 app.use("/api/booking", require("./Booking/route"));
 
